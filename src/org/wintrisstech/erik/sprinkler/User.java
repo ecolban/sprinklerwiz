@@ -22,7 +22,7 @@ import org.apache.commons.codec.binary.Base32;
 public class User implements Serializable {
 
 	private static final Logger logger = Logger
-			.getLogger(PasswordResetServlet.class.getName());
+			.getLogger(User.class.getName());
 
 	private static final long serialVersionUID = 1L;
 

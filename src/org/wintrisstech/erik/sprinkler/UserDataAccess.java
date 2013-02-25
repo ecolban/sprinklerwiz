@@ -71,7 +71,7 @@ public class UserDataAccess {
 	 */
 	public static long addUser(String username, String password, String email)
 			throws UnsupportedEncodingException {
-		Entity userAlreadyInDatastore = findUser(username);
+		Entity userAlreadyInDatastore = findUserEntity(username);
 		if (userAlreadyInDatastore != null) {
 			return 0L;
 		}
@@ -111,7 +111,7 @@ public class UserDataAccess {
 	 * @return a User instance
 	 */
 	public static User getUser(String userName, String password) {
-		Entity user = findUser(userName);
+		Entity user = findUserEntity(userName);
 		if (user != null) {
 			boolean passwordOK;
 			try {
@@ -140,7 +140,7 @@ public class UserDataAccess {
 	 *            the given id.
 	 * @return the User instance or null if not found
 	 */
-	public static User getUser(long id) {
+	public static User getUserById(long id) {
 		if (id <= 0) {
 			return null;
 		}
@@ -192,7 +192,7 @@ public class UserDataAccess {
 			userEntity.setProperty(SCHEDULE_ID_PROPERTY, user.getScheduleId());
 			datastore.put(userEntity);
 			keyCache.put(Long.valueOf(user.getId()), user);
-			logger.log(Level.INFO, "Added new user to the data store.");
+			logger.log(Level.INFO, "Updated user with id = {0}.", user.getId());
 		}
 	}
 
@@ -214,7 +214,7 @@ public class UserDataAccess {
 	 *            the given user name
 	 * @return returns the found entity, if found, or null otherwise.
 	 */
-	private static Entity findUser(String username) {
+	private static Entity findUserEntity(String username) {
 		logger.log(Level.INFO, "Querying the datastore for {0}.", username);
 		Query query = new Query(USER_KIND);
 		query.setFilter(new FilterPredicate(USERNAME_PROPERTY,
@@ -228,7 +228,7 @@ public class UserDataAccess {
 		}
 	}
 
-	public static User getUser(String email) {
+	public static User getUserByEmail(String email) {
 		logger.log(Level.INFO, "Querying the datastore for email = {0}.", email);
 		Query query = new Query(USER_KIND);
 		query.setFilter(new FilterPredicate(EMAIL_PROPERTY,
@@ -266,7 +266,7 @@ public class UserDataAccess {
 					new ShortBlob(Crypto.computeHmac(password, salt)));
 			entity.setProperty(SALT_PROPERTY, new ShortBlob(salt));
 			key = datastore.put(entity);
-			logger.log(Level.INFO, "Added new user to the data store.");
+			logger.log(Level.INFO, "Updated the password of user with id = {0}", id);
 		} catch (InvalidKeyException e) {
 			return;
 		} catch (NoSuchAlgorithmException e) {

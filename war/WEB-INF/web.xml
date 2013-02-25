@@ -63,6 +63,14 @@
 		<servlet-name>Password Reset</servlet-name>
 		<url-pattern>/reset/*</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Edit Schedule</servlet-name>
+		<servlet-class>org.wintrisstech.erik.sprinkler.ScheduleFormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Edit Schedule</servlet-name>
+		<url-pattern>/edit</url-pattern>
+	</servlet-mapping>
  
  <!-- Admin stuff  -->
  <!-- ===========  -->

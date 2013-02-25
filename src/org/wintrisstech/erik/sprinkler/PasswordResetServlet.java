@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 /**
- * A servlet that handles registration requests.
+ * A servlet that handles password reset requests.
  * 
  * @author ecolban
  * 
@@ -51,7 +51,7 @@ public class PasswordResetServlet extends HttpServlet {
 		try {
 			long id = getId(request);
 			if (id > 0) {
-				User user = UserDataAccess.getUser(id);
+				User user = UserDataAccess.getUserById(id);
 				if (user != null) {
 					RequestDispatcher view = request
 							.getRequestDispatcher("/view/password_reset.jsp");
@@ -87,7 +87,7 @@ public class PasswordResetServlet extends HttpServlet {
 					return;
 				}
 			} else {
-				User user = UserDataAccess.getUser(id);
+				User user = UserDataAccess.getUserById(id);
 				if (user != null) {
 					userName = user.getUserName();
 					request.setAttribute("username", userName);
@@ -168,7 +168,7 @@ public class PasswordResetServlet extends HttpServlet {
 				.substring(0, 52).toLowerCase();
 	}
 
-	public static boolean checkPasswordResetLink(long id2, String uri) {
+	private static boolean checkPasswordResetLink(long id2, String uri) {
 		long timestamp = System.currentTimeMillis() / TIMESTAMP_UNIT;
 		Matcher m = URI_PATTERN.matcher(uri);
 		if (m.matches()) {

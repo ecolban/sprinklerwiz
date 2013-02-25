@@ -32,10 +32,9 @@ public class WelcomeServlet extends HttpServlet {
 			throws IOException, ServletException {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
-			logger.log(Level.INFO, "Number of cookies = {0}", cookies.length);
 			long id = User.getId(cookies);
 			logger.log(Level.INFO, "Access by user with id = {0}", id);
-			User user = UserDataAccess.getUser(id);
+			User user = UserDataAccess.getUserById(id);
 			if (user != null) {
 				String userName = user.getUserName();
 				logger.log(Level.INFO, "Access by user {0}", userName);

@@ -20,9 +20,9 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
  * 
  */
 public class CookieEncoder {
-	
-//	private static final Logger logger = Logger
-//			.getLogger(PasswordResetServlet.class.getName());
+
+	private static final Logger logger = Logger.getLogger(CookieEncoder.class
+			.getName());
 
 	private static SecureRandom random = new SecureRandom();
 	public static final long TIMESTAMP_UNIT = 24L * 3600000L; // 24 hours

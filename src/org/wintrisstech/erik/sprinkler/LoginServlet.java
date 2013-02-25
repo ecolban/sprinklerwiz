@@ -15,7 +15,7 @@ import javax.servlet.http.*;
 public class LoginServlet extends HttpServlet {
 	
 	private static final Logger logger = Logger
-			.getLogger(PasswordResetServlet.class.getName());
+			.getLogger(LoginServlet.class.getName());
 
 	/**
 	 * Error message to display if the user types an invalid user name or
